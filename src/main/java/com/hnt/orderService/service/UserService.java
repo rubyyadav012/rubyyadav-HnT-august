@@ -16,4 +16,9 @@ public class UserService {
 		userRespository.save(user);
 	}
 
+	public Iterable<User> getUser() {
+		// TODO Auto-generated method stub
+		return userRespository.findAll();
+	}
+
 }
