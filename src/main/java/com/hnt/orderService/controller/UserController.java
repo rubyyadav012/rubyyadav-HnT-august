@@ -7,6 +7,9 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -38,15 +41,20 @@ public class UserController {
 	@PostMapping("/age/{age}/height/{height}")
 	@ResponseStatus(code=HttpStatus.CREATED)
 	
-	Integer saveUser(@Valid @RequestBody User user,@PathVariable("age") int age,@PathVariable("height") float height) {
+	ResponseEntity saveUser(@Valid @RequestBody User user,@PathVariable("age") int age,@PathVariable("height") float height) {
 		
 		userService.save(user);
 		System.out.println("height");
 		System.out.println("age");
-		return user.getId();
 		
-		
+		//ResponseEntity resposeEntity=new ResponseEntity(HttpStatus.CONFLICT);
+		MultiValueMap headers=new LinkedMultiValueMap<String,String>();
+		headers.add("headersformserver","success");
+		ResponseEntity responseEntity=new ResponseEntity(headers, HttpStatus.CREATED);
+		return responseEntity;
 		}
+	
+	
 	@PostMapping
 	Integer saveUser(@Valid @RequestBody User user) {
 		userService.save(user);
