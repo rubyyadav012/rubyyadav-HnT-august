@@ -1,7 +1,7 @@
 package com.hnt.orderService.controller;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static  org.mockito.Mockito.when;
+import static org.mockito.Mockito.when;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,7 +21,7 @@ import com.hnt.orderService.service.UserService;
 class UserControllerTest {
 
 	@Mock
-	UserService service;
+	UserService userService;
 
 	@InjectMocks
 	UserController controller;
@@ -32,10 +32,11 @@ class UserControllerTest {
 		user.setId(1);
 		
 		//when(service.save(user)).thenReturn(user);
+		when(userService.save(user)).thenReturn(user);
 		
 	      Integer saveUser = controller.saveUser(user);
 		
-		assertEquals(1, saveUser);
+		 assertEquals(1, saveUser);
 	}
 	
 }
