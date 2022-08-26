@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.validation.FieldError;
@@ -27,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 
 @RestController
+@RequestMapping("/user")
 public class UserController {
 	
 	@Autowired
@@ -38,21 +40,18 @@ public class UserController {
 		
 	}
 
-	@PostMapping("/age/{age}/height/{height}")
-	@ResponseStatus(code=HttpStatus.CREATED)
-	
-	ResponseEntity saveUser(@Valid @RequestBody User user,@PathVariable("age") int age,@PathVariable("height") float height) {
-		
+	@PostMapping("/age/{age}/height/{height}") // base path
+	@ResponseStatus(code = HttpStatus.CREATED)
+	ResponseEntity saveUser(@Valid @RequestBody User user, @PathVariable("age") int age, @PathVariable("height") float height) {
 		userService.save(user);
-		System.out.println("height");
-		System.out.println("age");
+		System.out.println(height);
+		System.out.println(age);
 		
-		//ResponseEntity resposeEntity=new ResponseEntity(HttpStatus.CONFLICT);
-		MultiValueMap headers=new LinkedMultiValueMap<String,String>();
-		headers.add("headersformserver","success");
-		ResponseEntity responseEntity=new ResponseEntity(headers, HttpStatus.CREATED);
+		MultiValueMap headers = new LinkedMultiValueMap<String, String>();
+		headers.add("headerfromserver", "success");
+		ResponseEntity responseEntity = new ResponseEntity(headers , HttpStatus.CREATED);
 		return responseEntity;
-		}
+	}
 	
 	
 	@PostMapping

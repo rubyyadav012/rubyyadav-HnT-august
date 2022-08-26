@@ -1,5 +1,7 @@
 package com.hnt.orderService.service;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,7 +18,7 @@ public class UserService {
 		userRespository.save(user);
 	}
 
-	public Iterable<User> getUser() {
+	public List<User> getUser() {
 		// TODO Auto-generated method stub
 		return userRespository.findAll();
 	}
